@@ -7,31 +7,43 @@ public class Calculate {
 	public static int square(int number) {
 		return number*number;
 	}
+	//returns cube of an integer
 	public static int cube(int number) {
 		return number*number*number;
 	}
-	public static double average(double x, double y) {
-		return (x+y)/2;
+	//returns the average of two numbers
+	public static double average(double num1, double num2) {
+		return (num1+num2)/2;
 	}
-	public static double average(double x, double y, double z) {
-		return (x+y+z)/3;
+	//returns the average of three numbers
+	public static double average(double num1, double num2, double num3) {
+		return (num1+num2+num3)/3;
 	}
+	//converts an angle measure given in radians to degrees
 	public static double toDegrees(double radians) {
 		return (radians/3.14159)*180;
 	}
+	//converts an angle measure in degrees to radians
 	public static double toRadians(double angle) {
 		return (angle/180)*3.14159;
 	}
+	//returns the discriminant of a quadratic equation
 	public static double discriminant(double a, double b, double c) {
 		return (b*b)-(4*a*c);
 	}
-	public static String toImproperFrac(int x, int y, int z) {
-		return (((x*z)+y) + "/" + z);
+	//converts a mixed number to an improper fraction 
+	public static String toImproperFrac(int wholeNum, int numerator, int denominator) {
+		return (((wholeNum*denominator)+numerator) + "/" + denominator);
 	}
-	public static String toMixedNum(int x, int y) {
-		return (x/y + "_" + (x%y) + "/" + y);
+	//converts an improper fraction to a mixed number
+	public static String toMixedNum(int numerator, int denominator) {
+		return (numerator/denominator + "_" + (numerator%denominator) + "/" + denominator);
 	}
-	public static String foil(int a, int b, int c, int d, int x, String e) {
-		return ("");
+	//converts binomial form (ax+b)(cx+d) to a quadratic equation of the form ax^2 + bx + c
+	public static String foil(int a, int b, int c, int d, String variable) {
+		int firstTerm = a*c;
+		int secondTerm = (a*d) + (b*c);
+		int thirdTerm = b*d;
+		return (firstTerm + variable + "^2 " + " + " + secondTerm + variable + " + " + thirdTerm);
 	}
 }
