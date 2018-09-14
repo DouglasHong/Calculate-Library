@@ -90,7 +90,7 @@ public class Calculate {
 	}
 	//rounds a double to two decimal places
 	public static double round2(double num) {
-		return (double)((int)(num*100)/100);
+		return ((int)(num*100)/(double)100.00);
 	}
 	//raises a number to a positive integer power
 	public static double exponent(double base, int power) {
@@ -108,9 +108,15 @@ public class Calculate {
 		}
 		return product;
 	}
-	/*public static int isPrime(int num) {
-		
+	public static boolean isPrime(int num) {
+		for(int i = 2; i <= num; i++) {
+			if(isDivisibleBy(num, i) && i != num) {
+				return false;
+			}
+		}
+		return true;
 	}
+	/*
 	public static int gcf(int num1, num2) {
 		
 	}*/
