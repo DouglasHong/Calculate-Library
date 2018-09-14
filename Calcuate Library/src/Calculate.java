@@ -44,6 +44,22 @@ public class Calculate {
 		int firstTerm = a*c;
 		int secondTerm = (a*d) + (b*c);
 		int thirdTerm = b*d;
-		return (firstTerm + variable + "^2 " + " + " + secondTerm + variable + " + " + thirdTerm);
+		return (firstTerm + variable + "^2 + " + secondTerm + variable + " + " + thirdTerm);
+	}
+	//determines if a number is evenly divisible by another number
+	public static boolean isDivisibleBy(int num1, int num2) {
+		if(num1 % num2 == 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	//returns the absolute value of the number passed
+	public static double absValue(double number) {
+		if (number < 0) {
+			return number * -1;
+		}else {
+			return number;
+		}
 	}
 }
