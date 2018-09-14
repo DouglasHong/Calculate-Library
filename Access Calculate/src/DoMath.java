@@ -18,5 +18,11 @@ public class DoMath {
 		System.out.println(Calculate.foil(2, 3, 6, -7, "n"));
 		System.out.println(Calculate.isDivisibleBy(10, 2));
 		System.out.println(Calculate.absValue(5));
+		System.out.println(Calculate.max(5, 2));
+		System.out.println(Calculate.max(100, 25, 15));
+		System.out.println(Calculate.round2(25));
+		System.out.println(Calculate.exponent(3, 3));
+		System.out.println(Calculate.factorial(5));
+		
 	}
 }

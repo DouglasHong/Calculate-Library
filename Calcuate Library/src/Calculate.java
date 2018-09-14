@@ -56,10 +56,62 @@ public class Calculate {
 	}
 	//returns the absolute value of the number passed
 	public static double absValue(double number) {
-		if (number < 0) {
+		if(number < 0) {
 			return number * -1;
 		}else {
 			return number;
 		}
 	}
+	//returns the larger value out of two numbers
+	public static double max(double num1, double num2) {
+		if(num1 > num2) {
+			return num1;
+		}else {
+			return num2;
+		}
+	}
+	//returns the larger value of three numbers
+	public static double max(double num1, double num2, double num3) {
+		if(num1 > num2 && num1 > num3) {
+			return num1;
+		}else if(num2 > num1 && num2 > num3) {
+			return num2;
+		}else {
+			return num3;
+		}
+	}
+	//returns the smaller value of two numbers
+	public static int min(int num1, int num2) {
+		if(num1 < num2) {
+			return num1;
+		}else {
+			return num2;
+		}
+	}
+	//rounds a double to two decimal places
+	public static double round2(double num) {
+		return (double)((int)(num*100)/100);
+	}
+	//raises a number to a positive integer power
+	public static double exponent(double base, int power) {
+		double product = base;
+		for(int i = 0; i < power-1; i++) {
+			product *= base;
+		}
+		return product;
+	}
+	//returns the factorial of the number passed
+	public static int factorial(int num) {
+		int product = 1;
+		for(int i = 1; i <= num; i++) {
+			product *= i;
+		}
+		return product;
+	}
+	/*public static int isPrime(int num) {
+		
+	}
+	public static int gcf(int num1, num2) {
+		
+	}*/
 }
