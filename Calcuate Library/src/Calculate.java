@@ -90,7 +90,9 @@ public class Calculate {
 	}
 	//rounds a double to two decimal places
 	public static double round2(double num) {
-		return ((int)(num*100)/(double)100.00);
+		int castedNum = (int)(num*100.0);
+		double roundNum = ((double)castedNum)/100.0;
+		return roundNum;
 	}
 	//raises a number to a positive integer power
 	public static double exponent(double base, int power) {
@@ -108,6 +110,7 @@ public class Calculate {
 		}
 		return product;
 	}
+	//determines if the integer passed is a prime number or not
 	public static boolean isPrime(int num) {
 		for(int i = 2; i <= num; i++) {
 			if(isDivisibleBy(num, i) && i != num) {
@@ -116,8 +119,26 @@ public class Calculate {
 		}
 		return true;
 	}
-	/*
-	public static int gcf(int num1, num2) {
-		
-	}*/
+	//determines the greatest common factor of two integers 
+	public static int gcf(int num1, int num2) {
+		int greatestFactor = 1;
+		for(int i = 1; i <= num1 && i <= num2; i++) {
+			if(isDivisibleBy(num1, i) && isDivisibleBy(num2, i)) {
+				greatestFactor = i;
+			}
+		}
+		return greatestFactor;
+	}
+	//returns the square root of the double passed
+	public static double sqrt(double num) {
+		double guess = num/2;
+		double root = 0;
+		if(num != 0) {
+			while(root != (num/guess + guess)/2) {
+				root = (num/guess + guess)/2;
+				guess = root;
+			}
+		}
+		return root;
+	}
 }
