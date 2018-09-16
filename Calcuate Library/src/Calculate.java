@@ -57,7 +57,7 @@ public class Calculate {
 	//returns the absolute value of the number passed
 	public static double absValue(double number) {
 		if(number < 0) {
-			return number * -1;
+			return number*-1;
 		}else {
 			return number;
 		}
@@ -89,31 +89,32 @@ public class Calculate {
 		}
 	}
 	//rounds a double to two decimal places
-	public static double round2(double num) {
-		int castedNum = (int)(num*100.0);
-		double roundNum = ((double)castedNum)/100.0;
+	public static double round2(double number) {
+		int castedNum = (int)(number*100.0);
+		double roundNum = (double)(castedNum/100.0);
 		return roundNum;
 	}
 	//raises a number to a positive integer power
 	public static double exponent(double base, int power) {
-		double product = base;
+		double result = base;
 		for(int i = 0; i < power-1; i++) {
-			product *= base;
+			result*=base;
 		}
-		return product;
+		return result;
 	}
 	//returns the factorial of the number passed
-	public static int factorial(int num) {
+	public static int factorial(int number) {
 		int product = 1;
-		for(int i = 1; i <= num; i++) {
-			product *= i;
+		for(int i = 1; i <= number; i++) {
+			product*=i;
 		}
 		return product;
 	}
 	//determines if the integer passed is a prime number or not
-	public static boolean isPrime(int num) {
-		for(int i = 2; i <= num; i++) {
-			if(isDivisibleBy(num, i) && i != num) {
+	//i starts at 2 because every number is divisible by 1
+	public static boolean isPrime(int number) {
+		for(int i = 2; i < number; i++) {
+			if(isDivisibleBy(number, i)) {
 				return false;
 			}
 		}
@@ -122,23 +123,21 @@ public class Calculate {
 	//determines the greatest common factor of two integers 
 	public static int gcf(int num1, int num2) {
 		int greatestFactor = 1;
-		for(int i = 1; i <= num1 && i <= num2; i++) {
+		for(int i = 1; i <= num1; i++) {
 			if(isDivisibleBy(num1, i) && isDivisibleBy(num2, i)) {
 				greatestFactor = i;
 			}
 		}
 		return greatestFactor;
 	}
-	//returns the square root of the double passed
-	public static double sqrt(double num) {
-		double guess = num/2;
-		double root = 0;
-		if(num != 0) {
-			while(root != (num/guess + guess)/2) {
-				root = (num/guess + guess)/2;
-				guess = root;
+	//returns the square root of the double passed; uses exponent method because square only works with int
+	public static double sqrt(double number) {
+		double root = number/2;
+		if(number != 0) {
+			while(absValue(number - exponent(root, 2)) > 0.005) {
+				root = ((number/root)+root)/2;
 			}
 		}
-		return root;
+		return round2(root);
 	}
 }
