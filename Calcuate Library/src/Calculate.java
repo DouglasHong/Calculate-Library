@@ -135,7 +135,7 @@ public class Calculate {
 		double root = number/2;
 		if(number != 0) {
 			while(absValue(number - exponent(root, 2)) > 0.005) {
-				root = ((number/root)+root)/2;
+				root = 0.5*((number/root)+root);
 			}
 		}
 		return round2(root);
