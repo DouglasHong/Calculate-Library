@@ -27,7 +27,7 @@ public class Calculate {
 	public static double toRadians(double angle) {
 		return (angle/180)*3.14159;
 	}
-	//returns the discriminant of a quadratic equation
+	//asks for coefficients of a quadratic equation and returns the discriminant 
 	public static double discriminant(double a, double b, double c) {
 		return (b*b)-(4*a*c);
 	}
@@ -62,7 +62,7 @@ public class Calculate {
 			return number;
 		}
 	}
-	//returns the larger value out of two numbers
+	//returns the greater value out of two numbers
 	public static double max(double num1, double num2) {
 		if(num1 > num2) {
 			return num1;
@@ -70,7 +70,7 @@ public class Calculate {
 			return num2;
 		}
 	}
-	//returns the larger value of three numbers
+	//returns the greatest value out of three numbers
 	public static double max(double num1, double num2, double num3) {
 		if(num1 > num2 && num1 > num3) {
 			return num1;
@@ -80,7 +80,7 @@ public class Calculate {
 			return num3;
 		}
 	}
-	//returns the smaller value of two numbers
+	//returns the smaller value out of two numbers
 	public static int min(int num1, int num2) {
 		if(num1 < num2) {
 			return num1;
@@ -88,13 +88,13 @@ public class Calculate {
 			return num2;
 		}
 	}
-	//rounds a double to two decimal places
+	//rounds a double to 2 decimal places
 	public static double round2(double number) {
 		int castedNum = (int)(number*100.0);
 		double roundNum = (double)(castedNum/100.0);
 		return roundNum;
 	}
-	//raises a number to a positive integer power
+	//raises a number/base to a positive integer power
 	public static double exponent(double base, int power) {
 		double result = base;
 		for(int i = 0; i < power-1; i++) {
@@ -123,7 +123,7 @@ public class Calculate {
 	//determines the greatest common factor of two integers 
 	public static int gcf(int num1, int num2) {
 		int greatestFactor = 1;
-		for(int i = 1; i <= num1; i++) {
+		for(int i = 2; i <= num1; i++) {
 			if(isDivisibleBy(num1, i) && isDivisibleBy(num2, i)) {
 				greatestFactor = i;
 			}
