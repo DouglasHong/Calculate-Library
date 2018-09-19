@@ -92,7 +92,12 @@ public class Calculate {
 	}
 	//rounds a double to 2 decimal places
 	public static double round2(double number) {
-		int castedNum = (int)(number*100.0);
+		if(number > 0) {
+			number += 0.005;
+		}else {
+			number -= 0.005;
+		}
+		int castedNum = (int)(number*100);
 		double roundNum = (double)(castedNum/100.0);
 		return roundNum;
 	}
