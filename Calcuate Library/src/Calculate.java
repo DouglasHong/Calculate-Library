@@ -3,6 +3,7 @@
  * @version 9/6/2018
  */
 public class Calculate {
+	//PART 1: Methods, Headers, and Basic Math
 	//returns square of an integer
 	public static int square(int number) {
 		return number*number;
@@ -46,6 +47,7 @@ public class Calculate {
 		int thirdTerm = b*d;
 		return (firstTerm + variable + "^2 + " + secondTerm + variable + " + " + thirdTerm);
 	}
+	//PART 2: Methods and Conditionals
 	//determines if a number is evenly divisible by another number
 	public static boolean isDivisibleBy(int num1, int num2) {
 		if(num1 % num2 == 0) {
@@ -94,6 +96,7 @@ public class Calculate {
 		double roundNum = (double)(castedNum/100.0);
 		return roundNum;
 	}
+	//PART 3: Methods that use Loops and Calls to Other Methods
 	//raises a number/base to a positive integer power
 	public static double exponent(double base, int power) {
 		double result = base;
