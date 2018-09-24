@@ -19,10 +19,10 @@ public class DoMath {
 		System.out.println(Calculate.isDivisibleBy(10, 3));
 		System.out.println(Calculate.absValue(-5));
 		System.out.println(Calculate.max(5, 2));
-		System.out.println(Calculate.max(100, 25, 15));
+		System.out.println("Max3: " + Calculate.max(0.00, 0.00, -2.00));
 		System.out.println(Calculate.min(80, 70));
 		System.out.println(Calculate.round2(-1.1573));
-		System.out.println(Calculate.exponent(3, 3));
+		System.out.println(Calculate.exponent(3, 4));
 		System.out.println(Calculate.factorial(5));
 		System.out.println(Calculate.isPrime(7));
 		System.out.println(Calculate.gcf(20, 15));
