@@ -104,8 +104,8 @@ public class Calculate {
 	//PART 3: Methods that use Loops and Calls to Other Methods
 	//raises a number/base to a positive integer power
 	public static double exponent(double base, int power) {
-		double result = base;
-		for(int i = 0; i < power-1; i++) {
+		double result = 1;
+		for(int i = 0; i < power; i++) {
 			result*=base;
 		}
 		return result;
