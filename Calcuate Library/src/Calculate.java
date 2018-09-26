@@ -50,6 +50,9 @@ public class Calculate {
 	//PART 2: Methods and Conditionals
 	//determines if a number is evenly divisible by another number
 	public static boolean isDivisibleBy(int num1, int num2) {
+		if(num2 == 0) {
+			throw new IllegalArgumentException("A number cannot be divided by 0.");
+		}
 		if(num1 % num2 == 0) {
 			return true;
 		}else {
@@ -104,6 +107,9 @@ public class Calculate {
 	//PART 3: Methods that use Loops and Calls to Other Methods
 	//raises a number/base to a positive integer power
 	public static double exponent(double base, int power) {
+		if(power < 0) {
+			throw new IllegalArgumentException("The exponent method cannot raise the base to a negative power.");
+		}
 		double result = 1;
 		for(int i = 0; i < power; i++) {
 			result*=base;
@@ -112,6 +118,9 @@ public class Calculate {
 	}
 	//returns the factorial of the number passed
 	public static int factorial(int number) {
+		if(number < 0) {
+			throw new IllegalArgumentException("A negative number cannot be used in factorial.");
+		}
 		int product = 1;
 		for(int i = 1; i <= number; i++) {
 			product*=i;
@@ -143,6 +152,9 @@ public class Calculate {
 	}
 	//returns the square root of the double passed; uses exponent method because square only works with int
 	public static double sqrt(double number) {
+		if(number < 0) {
+			throw new IllegalArgumentException("You cannot square root a negative number and get a real answer.");
+		}
 		double root = number/2;
 		if(number != 0) {
 			while(absValue(number - exponent(root, 2)) > 0.005) {
@@ -150,5 +162,23 @@ public class Calculate {
 			}
 		}
 		return round2(root);
+	}
+	//PART 4: Throwing Exceptions
+	//Uses coefficients of a quadratic formula to approximate real roots. If the discriminant is 0, there are no real roots. 
+	public static String quadForm(int a, int b, int c) {
+		if(discriminant(a, b, c) < 0) {
+			return "no real roots";
+		}
+		if(discriminant(a, b, c) == 0) {
+			double singleRoot = round2(-b/(a*2));
+			return "" + singleRoot;
+		}
+		double positiveRoot = round2((-b + (sqrt(discriminant(a, b, c)))/(a*2)));
+		double negativeRoot = round2((-b - (sqrt(discriminant(a, b, c)))/(a*2)));
+		if(positiveRoot > negativeRoot) {
+			return negativeRoot + " and " + positiveRoot;
+		}else {
+			return positiveRoot + " and " + negativeRoot;
+		}
 	}
 }
