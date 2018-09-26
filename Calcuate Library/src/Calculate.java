@@ -104,8 +104,8 @@ public class Calculate {
 	//PART 3: Methods that use Loops and Calls to Other Methods
 	//raises a number/base to a positive integer power
 	public static double exponent(double base, int power) {
-		double result = base;
-		for(int i = 0; i < power-1; i++) {
+		double result = 1;
+		for(int i = 0; i < power; i++) {
 			result*=base;
 		}
 		return result;
@@ -121,6 +121,9 @@ public class Calculate {
 	//determines if the integer passed is a prime number or not
 	//i starts at 2 because every number is divisible by 1
 	public static boolean isPrime(int number) {
+		if(number < 2) {
+			return false;
+		}
 		for(int i = 2; i < number; i++) {
 			if(isDivisibleBy(number, i)) {
 				return false;
@@ -128,7 +131,7 @@ public class Calculate {
 		}
 		return true;
 	}
-	//determines the greatest common factor of two integers 
+	//determines the greatest common factor of two positive integers 
 	public static int gcf(int num1, int num2) {
 		int greatestFactor = 1;
 		for(int i = 2; i <= num1; i++) {
