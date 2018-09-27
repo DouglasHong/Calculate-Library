@@ -164,7 +164,7 @@ public class Calculate {
 		return round2(root);
 	}
 	//PART 4: Throwing Exceptions
-	//Uses coefficients of a quadratic formula to approximate real roots. If the discriminant is 0, there are no real roots. 
+	//Uses coefficients of a quadratic formula to approximate real roots. If the discriminant is negative, there are no real roots. 
 	public static String quadForm(int a, int b, int c) {
 		if(a == 0) {
 			throw new IllegalArgumentException("a cannot be 0 because you cannot divide a number by 0.");
