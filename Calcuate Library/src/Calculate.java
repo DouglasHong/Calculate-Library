@@ -166,6 +166,9 @@ public class Calculate {
 	//PART 4: Throwing Exceptions
 	//Uses coefficients of a quadratic formula to approximate real roots. If the discriminant is 0, there are no real roots. 
 	public static String quadForm(int a, int b, int c) {
+		if(a == 0) {
+			throw new IllegalArgumentException("a cannot be 0 because you cannot divide a number by 0.");
+		}
 		if(discriminant(a, b, c) < 0) {
 			return "no real roots";
 		}
@@ -173,12 +176,12 @@ public class Calculate {
 			double singleRoot = round2(-b/(a*2));
 			return "" + singleRoot;
 		}
-		double positiveRoot = round2((-b + (sqrt(discriminant(a, b, c)))/(a*2)));
-		double negativeRoot = round2((-b - (sqrt(discriminant(a, b, c)))/(a*2)));
-		if(positiveRoot > negativeRoot) {
-			return negativeRoot + " and " + positiveRoot;
+		double firstRoot = round2((-b + (sqrt(discriminant(a, b, c))))/(a*2));
+		double secondRoot = round2((-b - (sqrt(discriminant(a, b, c))))/(a*2));
+		if(firstRoot > secondRoot) {
+			return secondRoot + " and " + firstRoot;
 		}else {
-			return positiveRoot + " and " + negativeRoot;
+			return firstRoot + " and " + secondRoot;
 		}
 	}
 }
