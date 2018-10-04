@@ -29,7 +29,16 @@ public class DoMath {
 		//System.out.println(Calculate.sqrt(-121));
 		System.out.println(Calculate.gcf(9, 3));
 		//System.out.println(Calculate.sqrt(-55));
-		System.out.println(Calculate.quadForm(1, 10, 16));
+		System.out.println(Calculate.quadForm(1, 0, 0));
+		for(int i = 0; i < 2;i++) {
+			for(int j = i; j < 6; j = j+2) {
+				System.out.println(i+j);
+				for(int k = j; k<6; k++) {
+					System.out.print("*");
+				}
+				System.out.println();
+			}
+		}
 	}
 }
 

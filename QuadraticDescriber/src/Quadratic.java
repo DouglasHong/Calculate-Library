@@ -6,12 +6,13 @@
  */
 public class Quadratic {
 	public static String quadrDescriber(double a, double b, double c) {
-		String direction;
+		String direction = "";
 		if(a < 0) {
 			direction = "The graph opens down.";
 		}else {
 			direction = "The graph opens up.";
 		}
+		return direction;
 	}
 	public static double round2(double number) {
 		if(number > 0) {
@@ -27,6 +28,14 @@ public class Quadratic {
 	public static double discriminant(double a, double b, double c) {
 		return (b*b)-(4*a*c);
 	}
+	//returns the absolute value of the number passed
+	public static double absValue(double number) {
+		if(number < 0) {
+			return number*-1;
+		}else {
+			return number;
+		}
+	}
 	//returns the square root of the double passed; uses exponent method because square only works with int
 	public static double sqrt(double number) {
 		if(number < 0) {
@@ -39,7 +48,18 @@ public class Quadratic {
 			}
 		}
 		return round2(root);
+	}
+	//raises a number/base to a positive integer power
+	public static double exponent(double base, int power) {
+		if(power < 0) {
+			throw new IllegalArgumentException("The exponent method cannot raise the base to a negative power.");
 		}
+		double result = 1;
+		for(int i = 0; i < power; i++) {
+			result*=base;
+		}
+		return result;
+	}
 	public static String quadForm(int a, int b, int c) {
 		if(a == 0) {
 			throw new IllegalArgumentException("a cannot be 0 because you cannot divide a number by 0.");
