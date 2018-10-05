@@ -1,5 +1,5 @@
 /* This class is responsible for all the calculations and descriptions of the quadratic equation's graph. 
- * It contains some of the Calculate classes and the quadraticDescriber method.
+ * It contains some methods from the Calculate class and the quadraticDescriber method.
  * 
  * @author Douglas Hong
  * @version 10/3/2018
