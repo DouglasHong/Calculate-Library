@@ -1,24 +1,26 @@
-/* This class is responsible for all the calculations. 
- * It contains all the Calculate classes and the quadraticDescriber method.
+/* This class is responsible for all the calculations and descriptions of the quadratic equation's graph. 
+ * It contains some of the Calculate classes and the quadraticDescriber method.
  * 
  * @author Douglas Hong
  * @version 10/3/2018
  */
 public class Quadratic {
+	// gets an equation in ax^2 + bx + c form and describes the parabola 
 	public static String quadrDescriber(double a, double b, double c) {
+		String equation = "Description of the graph of:\n" + a +"x^2 + " + b + "x + " + c;
 		String direction;
 		if(a < 0) {
-			direction = "The parabola opens downward.";
+			direction = "Opens: Down";
 		}else {
-			direction = "The parabola opens upward.";
+			direction = "Opens: Up";
 		}
 		double xVertex = round2(-b / (2 * a));
 		double yVertex = round2((a * (xVertex * xVertex)) + (b*xVertex) + c);
-		String vertex = "The vertex is (" + xVertex + "," + yVertex + ")";
+		String vertex = "Vertex: (" + xVertex + ", " + yVertex + ")";
 		String xIntercept = quadForm(a, b, c);
 		double yIntercept = c;
 		String interceptDescription = "x-intercept(s): " + xIntercept + " \ny-intercept: " + yIntercept;
-		String description = direction + "\n" + vertex + "\n" + interceptDescription;
+		String description = equation + "\n\n"+ direction + "\nAxis of Symmetry: " + xVertex +"\n" + vertex + "\n" + interceptDescription+"\n\n";
 		return description;
 	}
 	//rounds a double to 2 decimal places
