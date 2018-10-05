@@ -8,21 +8,18 @@ import java.util.*;
 public class QuadraticClient {
 	public static void main(String[] args) {
 		Scanner userInput = new Scanner(System.in);
-		boolean go = true;
-		while(go == true) {
-			System.out.println("Provide values for coefficicents a, b, and c");
-			System.out.println("a: ");
+		System.out.println("Welcome to the Quadratic Describer\nProvide values for coefficients a, b, and c");
+		String quit;
+		do {
+			System.out.print("\na: ");
 			double a = userInput.nextDouble();
-			System.out.println("b: ");
+			System.out.print("b: ");
 			double b = userInput.nextDouble();
-			System.out.println("c: ");
+			System.out.print("c: ");
 			double c = userInput.nextDouble();
-			System.out.println(Quadratic.quadrDescriber(a,b,c));
+			System.out.println("\n" + Quadratic.quadrDescriber(a,b,c));
 			System.out.println("Do you want to keep going? (Type \"quit\" to end)");
-			String quit = userInput.nextLine();
-			if(quit.equals("quit")) {
-				break;
-			}
-		}
+			quit = userInput.next();
+		}while(!(quit.equals("quit")));
 	}
 }

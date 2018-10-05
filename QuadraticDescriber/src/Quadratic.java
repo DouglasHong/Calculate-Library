@@ -7,21 +7,20 @@
 public class Quadratic {
 	// gets an equation in ax^2 + bx + c form and describes the parabola 
 	public static String quadrDescriber(double a, double b, double c) {
-		String equation = "Description of the graph of:\n" + a +"x^2 + " + b + "x + " + c;
+		String equation = "Description of the graph of:\ny = " + a +" x^2 + " + b + " x + " + c;
 		String direction;
 		if(a < 0) {
 			direction = "Opens: Down";
 		}else {
 			direction = "Opens: Up";
 		}
-		double xVertex = round2(-b / (2 * a));
-		double yVertex = round2((a * (xVertex * xVertex)) + (b*xVertex) + c);
+		double xVertex = round2(-b / (2*a));
+		double yVertex = round2(a * xVertex*xVertex + b*xVertex + c);
 		String vertex = "Vertex: (" + xVertex + ", " + yVertex + ")";
 		String xIntercept = quadForm(a, b, c);
-		double yIntercept = c;
-		String interceptDescription = "x-intercept(s): " + xIntercept + " \ny-intercept: " + yIntercept;
-		String description = equation + "\n\n"+ direction + "\nAxis of Symmetry: " + xVertex +"\n" + vertex + "\n" + interceptDescription+"\n\n";
-		return description;
+		String intercepts = "x-intercept(s): " + xIntercept + " \ny-intercept: " + c;
+		String fullDescription = equation + "\n\n" + direction + "\nAxis of Symmetry: " + xVertex + "\n" + vertex + "\n" + intercepts + "\n";
+		return fullDescription;
 	}
 	//rounds a double to 2 decimal places
 	public static double round2(double number) {
