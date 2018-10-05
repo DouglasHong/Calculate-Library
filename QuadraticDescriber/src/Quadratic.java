@@ -6,14 +6,22 @@
  */
 public class Quadratic {
 	public static String quadrDescriber(double a, double b, double c) {
-		String direction = "";
+		String direction;
 		if(a < 0) {
-			direction = "The graph opens down.";
+			direction = "The parabola opens downward.";
 		}else {
-			direction = "The graph opens up.";
+			direction = "The parabola opens upward.";
 		}
-		return direction;
+		double xVertex = round2(-b / (2 * a));
+		double yVertex = round2((a * (xVertex * xVertex)) + (b*xVertex) + c);
+		String vertex = "The vertex is (" + xVertex + "," + yVertex + ")";
+		String xIntercept = quadForm(a, b, c);
+		double yIntercept = c;
+		String interceptDescription = "x-intercept(s): " + xIntercept + " \ny-intercept: " + yIntercept;
+		String description = direction + "\n" + vertex + "\n" + interceptDescription;
+		return description;
 	}
+	//rounds a double to 2 decimal places
 	public static double round2(double number) {
 		if(number > 0) {
 			number += 0.005;
@@ -60,7 +68,8 @@ public class Quadratic {
 		}
 		return result;
 	}
-	public static String quadForm(int a, int b, int c) {
+	//Uses coefficients of a quadratic formula to approximate real roots. If the discriminant is negative, there are no real roots. 
+	public static String quadForm(double a, double b, double c) {
 		if(a == 0) {
 			throw new IllegalArgumentException("a cannot be 0 because you cannot divide a number by 0.");
 		}
