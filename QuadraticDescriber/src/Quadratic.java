@@ -72,7 +72,7 @@ public class Quadratic {
 	//Uses coefficients of a quadratic formula to approximate real roots. If the discriminant is negative, there are no real roots. 
 	public static String quadForm(double a, double b, double c) {
 		if(a == 0) {
-			throw new IllegalArgumentException("a cannot be 0 because you cannot divide a number by 0.");
+			throw new IllegalArgumentException("a cannot be 0 because the graph will not be a parabola and you cannot divide a number by 0.");
 		}
 		if(discriminant(a, b, c) < 0) {
 			return "no real roots";
