@@ -20,9 +20,12 @@ public class Hourglass {
 		System.out.println(base + "|");
 	}
 	public static void printTopHalf() {
-		for(int i = 1; i <= 5; i++) {
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 1+i; j++) {
+				System.out.print(" ");
+			}
 			String line = "\\";
-			for(int j = 8; j > 0; j-=2) {
+			for(int k = 0; k < 8 - 2*i; k++) {
 				line += ":";
 			}
 			System.out.println(line + "/");
@@ -35,9 +38,12 @@ public class Hourglass {
 		System.out.println("||");
 	}
 	public static void printBottomHalf(){
-		for(int i = 1; i <= 5; i++) {
+		for(int i = 0; i < 4; i++) {
+			for(int j = 5; j > 1+i; j--) {
+				System.out.print(" ");
+			}
 			String line = "/";
-			for(int j = 8; j > 0; j-=2) {
+			for(int k = 0; k < 2 + 2*i; k++) {
 				line += ":";
 			}
 			System.out.println(line + "\\");
