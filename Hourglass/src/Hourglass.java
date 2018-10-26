@@ -41,8 +41,13 @@ public class Hourglass {
 	}
 	//prints the middle two ||
 	public static void printMiddle(int numChars) {
-		printStringOfChars(" ", numChars/2);
-		newLine("||");
+		if(numChars % 2 == 0) {
+			printStringOfChars(" ", numChars/2);
+			newLine("||");
+		}else{
+			printStringOfChars(" ", numChars/2 + 1);
+			newLine("|");
+		}
 	}
 	//prints the bottom half of the hourglass
 	public static void printBottomHalf(int numChars){
