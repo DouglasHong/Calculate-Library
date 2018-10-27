@@ -1,5 +1,5 @@
 import java.util.*;
-/* Prints out an hourglass using less than 11 println/print statements (used 4 in the whole program)
+/* Prints out an hourglass with user input and using less than 11 println/print statements (used 4 in the whole program)
  * 
  * @author Douglas Hong
  * @version 10/19/2018
@@ -10,7 +10,7 @@ public class Hourglass {
 		Scanner console = new Scanner(System.in);
 		String quit;
 		do {
-			System.out.println("How many characters? ");
+			System.out.println("How many characters for the base? ");
 			int numChars = console.nextInt();
 			printBase(numChars);
 			printTopHalf(numChars);
@@ -31,7 +31,7 @@ public class Hourglass {
 	//prints the top half of the hourglass
 	public static void printTopHalf(int numChars) {
 		for(int i = 1; i < numChars/2; i++) {
-			//j is looped until less than i because spaces = row number
+			//j is looped until less than i because number of spaces = row number
 			printStringOfChars(" ", i);
 			printStringOfChars("\\", 1);
 			//the count is numChars-2*i because the colons will decrease by 2 each row
@@ -39,12 +39,16 @@ public class Hourglass {
 			newLine("/");
 		}
 	}
-	//prints the middle two ||
+	//prints the middle of the hourglass
 	public static void printMiddle(int numChars) {
+		//there are different numbers of "|" so the middle would look symmetrical
 		if(numChars % 2 == 0) {
 			printStringOfChars(" ", numChars/2);
 			newLine("||");
-		}else{
+		}else if(numChars % 2 != 0 && numChars >= 3){
+			printStringOfChars(" ", numChars/2);
+			newLine("|||");
+		}else {
 			printStringOfChars(" ", numChars/2 + 1);
 			newLine("|");
 		}
@@ -63,7 +67,7 @@ public class Hourglass {
 			newLine("\\");
 		}
 	}
-	//prints a row of multiple characters
+	//prints one character or a row of multiple characters
 	public static void printStringOfChars(String s, int count) {
 		for(int i = 0; i < count; i++) {
 			System.out.print(s);
