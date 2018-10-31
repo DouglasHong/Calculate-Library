@@ -3,8 +3,11 @@ public class Split {
 	public static void main(String[] args) {
 		System.out.println(Arrays.toString("I like apples!".split(" ")));
 		System.out.println(Arrays.toString("I really like really red apples".split("really")));
+		System.out.println(Arrays.toString("I really like reallyreally red apples".split("really")));
 		System.out.println(Arrays.toString("I reallyreally likeapples".split("really")));
-
+		String[] applesArray = "I really like reallyreally red apples".split("really");
+		System.out.println(Arrays.toString(applesArray));
+		System.out.println(Arrays.toString(middleSandwich("cheesebreadhambreadcheese")));
 // Your task Part 0
 
 //String.split();
@@ -58,7 +61,13 @@ public class Split {
 * Again, what if it's a fancy sandwich with multiple pieces of bread?
 
 */
-
- }
-
+	}
+	public static String[] middleSandwich(String food) {
+		int breadIndex = food.indexOf("bread");
+		food = food.substring(breadIndex+5, food.length());
+		int breadIndex2 = food.indexOf("bread");
+		food = food.substring(0, breadIndex2);
+		String[] middle = food.split("bread");
+		return middle;
+	}
 }
