@@ -7,7 +7,7 @@ public class Split {
 		System.out.println(Arrays.toString("I reallyreally likeapples".split("really")));
 		String[] applesArray = "I really like reallyreally red apples".split("really");
 		System.out.println(Arrays.toString(applesArray));
-		System.out.println(Arrays.toString(middleSandwich("cheesebreadhambreadcheese")));
+		System.out.println(Arrays.toString(middleSandwich("applespineapplesbreadlettustomatobaconmayohambreadcheese")));
 // Your task Part 0
 
 //String.split();
@@ -63,8 +63,8 @@ public class Split {
 */
 	}
 	public static String[] middleSandwich(String food) {
-		int breadIndex = food.indexOf("bread");
-		food = food.substring(breadIndex+5, food.length());
+		int breadIndex1 = food.indexOf("bread");
+		food = food.substring(breadIndex1+5, food.length());
 		int breadIndex2 = food.indexOf("bread");
 		food = food.substring(0, breadIndex2);
 		String[] middle = food.split("bread");
