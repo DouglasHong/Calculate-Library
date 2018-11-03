@@ -22,10 +22,6 @@ public class Split {
 	public static String[] middleSandwich(String food) {
 		int breadIndex1 = food.indexOf("bread");
 		food = food.substring(breadIndex1 + 5, food.length());
-		while(food.indexOf("bread") != -1) {
-			int breadIndex2 = food.indexOf("bread");
-			
-		}
 		int breadIndex2 = food.indexOf("bread");
 		food = food.substring(0, breadIndex2);
 		String[] middle = food.split("bread");
