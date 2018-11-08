@@ -12,7 +12,8 @@ public class LotsOfCopies {
 		System.out.println("arrMain: " + Arrays.toString(arrMain));
 		part2WithInts();
 		part2WithStrings();
-		part2WithArrays();
+		part2WithIntArrays();
+		part2WithStringArrays();
 	}
 	public static void changeMe(int x, String str, int[] arr) {
 		x++;
@@ -34,10 +35,17 @@ public class LotsOfCopies {
 		System.out.println("a: " + a);
 		System.out.println("b: " + b);
 	}
-	public static void part2WithArrays() {
+	public static void part2WithIntArrays() {
 		int[] a = {2, 4, 6}; //a = startValue
 		int[] b = a; //b = a
 		a[1] = 10; //a = newValue
+		System.out.println("a: " + Arrays.toString(a));
+		System.out.println("b: " + Arrays.toString(b));
+	}
+	public static void part2WithStringArrays() {
+		String[] a = {"hi" , "hello", "bye"}; //a = startValue
+		String[] b = a; //b = a
+		a[1] = "goodbye"; //a = newValue
 		System.out.println("a: " + Arrays.toString(a));
 		System.out.println("b: " + Arrays.toString(b));
 	}
