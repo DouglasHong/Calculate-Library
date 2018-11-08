@@ -10,25 +10,35 @@ public class LotsOfCopies {
 		System.out.println("num: " + num);
 		System.out.println("strMain: " + strMain);
 		System.out.println("arrMain: " + Arrays.toString(arrMain));
-		int a = 5;
-		int b = a;
-		a = 10;
-		System.out.println("a: " + a);
-		System.out.println("b: " + b);
-		int a = 5;
-		int b = a;
-		a = 10;
-		System.out.println("a: " + a);
-		System.out.println("b: " + b);
-		int a = 5;
-		int b = a;
-		a = 10;
-		System.out.println("a: " + a);
-		System.out.println("b: " + b);
+		part2WithInts();
+		part2WithStrings();
+		part2WithArrays();
 	}
 	public static void changeMe(int x, String str, int[] arr) {
 		x++;
 		str += str;
 		arr[2] = 42;
+	}
+	public static void part2WithInts() {
+		System.out.println("Part 2");
+		int a = 7; //a = startValue
+		int b = a; //b = a
+		a = 1; //a = newValue
+		System.out.println("a: " + a);
+		System.out.println("b: " + b);
+	}
+	public static void part2WithStrings() {
+		String a = "good"; //a = startValue
+		String b = a; //b = a
+		a = "bad"; //a = newValue
+		System.out.println("a: " + a);
+		System.out.println("b: " + b);
+	}
+	public static void part2WithArrays() {
+		int[] a = {2, 4, 6}; //a = startValue
+		int[] b = a; //b = a
+		a[1] = 10; //a = newValue
+		System.out.println("a: " + Arrays.toString(a));
+		System.out.println("b: " + Arrays.toString(b));
 	}
 }
