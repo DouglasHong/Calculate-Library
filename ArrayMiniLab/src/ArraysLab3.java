@@ -66,6 +66,4 @@ public class ArraysLab3 {
 		}
 		arr[0] = temp;
 	}
-	}
-
-
+}
