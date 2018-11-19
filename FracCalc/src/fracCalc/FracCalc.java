@@ -6,19 +6,17 @@ import java.util.*;
  * @version 11/15/2018
  */
 public class FracCalc {
-
+	
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please type the first operand(fraction), the operator (+,-,*,/), and the second operand (fraction) (Type 'quit' to quit)");
         String expression = userInput.nextLine();
-        while(!expression.equals("quit")) {
+        while(!expression.equalsIgnoreCase("quit")) {
         	System.out.println(produceAnswer(expression));
         	System.out.println("Please type the first operand(fraction), the operator (+,-,*,/), and the second operand (fraction) (Type 'quit' to quit)");
         	expression = userInput.nextLine();
         }
-        if(expression.equals("quit")) {
-        	System.out.println("Calculator stopped");
-        }
+        System.out.println("Calculator stopped");
     }
     
     // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
@@ -31,11 +29,45 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input)
     { 
-        // TODO: Implement this function to produce the solution to the input
-        
-        return "";
+    	String[] splitInput = input.split(" ");
+    	/*
+    	String wholeNum2 = "";
+    	String numerator2 = "";
+    	String denominator2 = "";
+    	if(splitInput[2].indexOf("/") != -1) {
+    		denominator2 = splitInput[2].substring(splitInput[2].indexOf("/") + 1, splitInput[2].length());
+    		numerator2 = splitInput[2].substring(splitInput[2].indexOf("/") - 1, splitInput[2].indexOf("/"));
+    	}
+    	if(splitInput[2].indexOf("_") != -1) {
+    		wholeNum2 = splitInput[2].substring(splitInput[2].indexOf("_") - 1, splitInput[2].indexOf("_"));
+    	} */
+    	/*if(splitInput[1].equals("+")) {
+    		add();
+    	}else if(splitInput[1].equals("-")) {
+    		subtract();
+    	}else if(splitInput[1].equals("*")) {
+    		multiply();
+    	}else {
+    		divide();
+    	} */
+        //return ("whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2);
+    	return splitInput[2];
     }
 
-    // TODO: Fill in the space below with any helper methods that you think you will need
+    public static void add() {
+    	
+    }
+    
+    public static void subtract() {
+    	
+    }
+    
+    public static void multiply() {
+    	
+    }
+    
+    public static void divide() {
+    	
+    }
     
 }
