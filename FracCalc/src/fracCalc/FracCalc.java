@@ -30,17 +30,28 @@ public class FracCalc {
     public static String produceAnswer(String input)
     { 
     	String[] splitInput = input.split(" ");
-    	/*
     	String wholeNum2 = "";
     	String numerator2 = "";
     	String denominator2 = "";
-    	if(splitInput[2].indexOf("/") != -1) {
-    		denominator2 = splitInput[2].substring(splitInput[2].indexOf("/") + 1, splitInput[2].length());
-    		numerator2 = splitInput[2].substring(splitInput[2].indexOf("/") - 1, splitInput[2].indexOf("/"));
-    	}
     	if(splitInput[2].indexOf("_") != -1) {
     		wholeNum2 = splitInput[2].substring(splitInput[2].indexOf("_") - 1, splitInput[2].indexOf("_"));
-    	} */
+    	}else if(splitInput[2].indexOf("_") == -1 && splitInput[2].indexOf("/") == -1){
+    		wholeNum2 = splitInput[2];
+    	}else{ //if(splitInput[2].indexOf("_") == -1)
+    		wholeNum2 = "0";
+    	}
+    	if(splitInput[2].indexOf("/") != -1) {
+    		denominator2 = splitInput[2].substring(splitInput[2].indexOf("/") + 1, splitInput[2].length());
+    		if(splitInput[2].indexOf("_") == -1) {
+    			numerator2 = splitInput[2].substring(0, splitInput[2].indexOf("/"));
+    		}else {
+    			numerator2 = splitInput[2].substring(splitInput[2].indexOf("_") + 1, splitInput[2].indexOf("/"));
+    		}
+    	}else {
+    		denominator2 = "1";
+    		numerator2 ="0";
+    	}
+    	
     	/*if(splitInput[1].equals("+")) {
     		add();
     	}else if(splitInput[1].equals("-")) {
@@ -50,8 +61,8 @@ public class FracCalc {
     	}else {
     		divide();
     	} */
-        //return ("whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2);
-    	return splitInput[2];
+        return ("whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2);
+    	//return splitInput[2];
     }
 
     public static void add() {
