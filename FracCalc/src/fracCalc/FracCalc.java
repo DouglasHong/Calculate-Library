@@ -27,32 +27,15 @@ public class FracCalc {
     //        
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
-    public static String produceAnswer(String input)
-    { 
+    public static String produceAnswer(String input) { 
     	String[] splitInput = input.split(" ");
-    	String wholeNum2 = "";
-    	String numerator2 = "";
-    	String denominator2 = "";
-    	if(splitInput[2].indexOf("_") != -1) {
-    		wholeNum2 = splitInput[2].substring(splitInput[2].indexOf("_") - 1, splitInput[2].indexOf("_"));
-    	}else if(splitInput[2].indexOf("_") == -1 && splitInput[2].indexOf("/") == -1){
-    		wholeNum2 = splitInput[2];
-    	}else{ //if(splitInput[2].indexOf("_") == -1)
-    		wholeNum2 = "0";
-    	}
-    	if(splitInput[2].indexOf("/") != -1) {
-    		denominator2 = splitInput[2].substring(splitInput[2].indexOf("/") + 1, splitInput[2].length());
-    		if(splitInput[2].indexOf("_") == -1) {
-    			numerator2 = splitInput[2].substring(0, splitInput[2].indexOf("/"));
-    		}else {
-    			numerator2 = splitInput[2].substring(splitInput[2].indexOf("_") + 1, splitInput[2].indexOf("/"));
-    		}
-    	}else {
-    		denominator2 = "1";
-    		numerator2 ="0";
-    	}
-    	
-    	/*if(splitInput[1].equals("+")) {
+    	int wholeNum1 = getWholeNum(splitInput, 0);
+    	int numerator1 = getNumerator(splitInput, 0);
+    	int denominator1 = getDenominator(splitInput, 0);
+    	int wholeNum2 = getWholeNum(splitInput, 2);
+    	int numerator2 = getNumerator(splitInput, 2);
+    	int denominator2 = getDenominator(splitInput, 2);
+    	if(splitInput[1].equals("+")) {
     		add();
     	}else if(splitInput[1].equals("-")) {
     		subtract();
@@ -60,9 +43,43 @@ public class FracCalc {
     		multiply();
     	}else {
     		divide();
-    	} */
+    	} 
         return ("whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2);
     	//return splitInput[2];
+    }
+    public static int getWholeNum(String[] input, int index) {
+    	String wholeNum;
+    	if(input[index].indexOf("_") != -1) {
+    		wholeNum = input[index].substring(input[index].indexOf("_") - 1, input[index].indexOf("_"));
+    	}else if(input[index].indexOf("_") == -1 && input[index].indexOf("/") == -1){
+    		wholeNum = input[index];
+    	}else{ //if(splitInput[2].indexOf("_") == -1)
+    		wholeNum = "0";
+    	}
+    	return Integer.parseInt(wholeNum);
+    }
+    public static int getNumerator(String[] input, int index) {
+    	String numerator;
+    	if(input[index].indexOf("_") == -1 && input[index].indexOf("/") != -1) {
+			numerator = input[index].substring(0, input[index].indexOf("/"));
+		}else if(input[index].indexOf("_") != -1){
+			numerator = input[index].substring(input[index].indexOf("_") + 1, input[index].indexOf("/"));
+		}else {
+			numerator = "0";
+		}
+    	return Integer.parseInt(numerator);
+    }
+    public static int getDenominator(String[] input, int index) {
+    	String denominator;
+    	if(input[index].indexOf("/") != -1) {
+    		denominator = input[index].substring(input[index].indexOf("/") + 1, input[index].length());
+    	}else {
+    		denominator = "1";
+    	}
+    	return Integer.parseInt(denominator);
+    }
+    public static void toImproperFrac() {
+    	
     }
 
     public static void add() {
