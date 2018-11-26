@@ -29,25 +29,29 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input) { 
     	String[] splitInput = input.split(" ");
-    	int wholeNum1 = getWholeNum(splitInput, 0);
-    	int numerator1 = getNumerator(splitInput, 0);
-    	int denominator1 = getDenominator(splitInput, 0);
-    	int wholeNum2 = getWholeNum(splitInput, 2);
-    	int numerator2 = getNumerator(splitInput, 2);
-    	int denominator2 = getDenominator(splitInput, 2);
+    	int wholeNum1 = parseWholeNum(splitInput, 0);
+    	int numerator1 = parseNumerator(splitInput, 0);
+    	int denominator1 = parseDenominator(splitInput, 0);
+    	int wholeNum2 = parseWholeNum(splitInput, 2);
+    	int numerator2 = parseNumerator(splitInput, 2);
+    	int denominator2 = parseDenominator(splitInput, 2);
+    	int[] firstImproper = toImproperFrac(wholeNum1, numerator1, denominator1);
+    	int[] secondImproper = toImproperFrac(wholeNum2, numerator2, denominator2);
+    	int[] answer = new int[2];
     	if(splitInput[1].equals("+")) {
-    		add();
+    		answer = add(firstImproper, secondImproper);
     	}else if(splitInput[1].equals("-")) {
-    		subtract();
+    		answer = subtract(firstImproper, secondImproper);
     	}else if(splitInput[1].equals("*")) {
-    		multiply();
+    		answer = multiply(firstImproper, secondImproper);
     	}else {
-    		divide();
+    		answer = divide(firstImproper, secondImproper);
     	} 
-        return ("whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2);
+    	return toMixedNum(answer[0], answer[1]);
+        //return "whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2;
     	//return splitInput[2];
     }
-    public static int getWholeNum(String[] input, int index) {
+    public static int parseWholeNum(String[] input, int index) {
     	String wholeNum;
     	if(input[index].indexOf("_") != -1) {
     		wholeNum = input[index].substring(input[index].indexOf("_") - 1, input[index].indexOf("_"));
@@ -58,18 +62,18 @@ public class FracCalc {
     	}
     	return Integer.parseInt(wholeNum);
     }
-    public static int getNumerator(String[] input, int index) {
+    public static int parseNumerator(String[] input, int index) {
     	String numerator;
     	if(input[index].indexOf("_") == -1 && input[index].indexOf("/") != -1) {
 			numerator = input[index].substring(0, input[index].indexOf("/"));
-		}else if(input[index].indexOf("_") != -1){
+		}else if(input[index].indexOf("_") != -1 && input[index].indexOf("/") != -1){
 			numerator = input[index].substring(input[index].indexOf("_") + 1, input[index].indexOf("/"));
 		}else {
 			numerator = "0";
 		}
     	return Integer.parseInt(numerator);
     }
-    public static int getDenominator(String[] input, int index) {
+    public static int parseDenominator(String[] input, int index) {
     	String denominator;
     	if(input[index].indexOf("/") != -1) {
     		denominator = input[index].substring(input[index].indexOf("/") + 1, input[index].length());
@@ -78,24 +82,71 @@ public class FracCalc {
     	}
     	return Integer.parseInt(denominator);
     }
-    public static void toImproperFrac() {
-    	
+    public static int[] toImproperFrac(int wholeNum, int numerator, int denominator) {
+    	int[] improper = new int[2];
+    	improper[0] = wholeNum*denominator+numerator;
+    	improper[1] = denominator;
+    	return improper;
     }
 
-    public static void add() {
-    	
+    public static int[] add(int[] frac1, int[] frac2) {
+    	int[] sum = new int[2];
+    	sum[0] = frac1[0] + frac2[0];
+    	if(frac1[1] != frac2[1]) {
+    		sum[1] = gcf(frac1[1], frac2[1]);
+    	}else {
+    		sum[1] = frac1[1];
+    	}
+    	return sum;
     }
     
-    public static void subtract() {
-    	
+    public static int[] subtract(int[] frac1, int[] frac2) {
+    	int[] difference = new int[2];
+    	difference[0] = frac1[0] - frac2[0];
+    	if(frac1[1] != frac2[1]) {
+    		difference[1] = gcf(frac1[1], frac2[1]);
+    	}else {
+    		difference[1] = frac1[1];
+    	}
+    	return difference;
     }
     
-    public static void multiply() {
-    	
+    public static int[] multiply(int[] frac1, int[] frac2) {
+    	int[] product = new int[2];
+    	product[0] = frac1[0] * frac2[0];
+    	product[1] = frac1[1] * frac2[1];
+    	return product;
     }
     
-    public static void divide() {
-    	
+    public static int[] divide(int[] frac1, int[] frac2) {
+    	int[] quotient = new int[2];
+    	quotient[0] = frac1[0] * frac2[1];
+    	quotient[1] = frac1[1] * frac2[0];
+    	return quotient;
     }
-    
+    //determines the greatest common factor of two positive integers 
+  	public static int gcf(int num1, int num2) {
+  		int greatestFactor = 1;
+  		for(int i = 2; i <= num1; i++) {
+  			if(isDivisibleBy(num1, i) && isDivisibleBy(num2, i)) {
+  				greatestFactor = i;
+  			}
+  		}
+  		return greatestFactor;
+  	}
+    //determines if a number is evenly divisible by another number
+  	public static boolean isDivisibleBy(int num1, int num2) {
+  		if(num2 == 0) {
+  			throw new IllegalArgumentException("A number cannot be divided by 0.");
+  		}
+  		if(num1 % num2 == 0) {
+  			return true;
+  		}else {
+  			return false;
+  		}
+  	}
+    //converts an improper fraction to a mixed number
+  	public static String toMixedNum(int numerator, int denominator) {
+  		return (numerator/denominator + "_" + (numerator%denominator) + "/" + denominator);
+  	}
 }
