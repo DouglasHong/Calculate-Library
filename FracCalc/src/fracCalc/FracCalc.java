@@ -47,14 +47,14 @@ public class FracCalc {
     	}else {
     		answer = divide(firstImproper, secondImproper);
     	} 
-    	return toMixedNum(answer[0], answer[1]);
+        return toMixedNum(answer[0], answer[1]);
         //return "whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2;
     	//return splitInput[2];
     }
     public static int parseWholeNum(String[] input, int index) {
     	String wholeNum;
     	if(input[index].indexOf("_") != -1) {
-    		wholeNum = input[index].substring(input[index].indexOf("_") - 1, input[index].indexOf("_"));
+    		wholeNum = input[index].substring(0, input[index].indexOf("_"));
     	}else if(input[index].indexOf("_") == -1 && input[index].indexOf("/") == -1){
     		wholeNum = input[index];
     	}else{ //if(splitInput[2].indexOf("_") == -1)
@@ -66,7 +66,7 @@ public class FracCalc {
     	String numerator;
     	if(input[index].indexOf("_") == -1 && input[index].indexOf("/") != -1) {
 			numerator = input[index].substring(0, input[index].indexOf("/"));
-		}else if(input[index].indexOf("_") != -1 && input[index].indexOf("/") != -1){
+		}else if(input[index].indexOf("_") != -1 && input[index].indexOf("/") != -1) {
 			numerator = input[index].substring(input[index].indexOf("_") + 1, input[index].indexOf("/"));
 		}else {
 			numerator = "0";
@@ -84,19 +84,24 @@ public class FracCalc {
     }
     public static int[] toImproperFrac(int wholeNum, int numerator, int denominator) {
     	int[] improper = new int[2];
-    	improper[0] = wholeNum*denominator+numerator;
-    	improper[1] = denominator;
+    	if(wholeNum > 0) {
+    		improper[0] = wholeNum*denominator+numerator;
+    	}else {
+    		improper[0] = wholeNum*denominator-numerator;
+    	}
+       	improper[1] = denominator;
     	return improper;
     }
 
     public static int[] add(int[] frac1, int[] frac2) {
     	int[] sum = new int[2];
-    	sum[0] = frac1[0] + frac2[0];
     	if(frac1[1] != frac2[1]) {
     		sum[1] = gcf(frac1[1], frac2[1]);
+    		sum[0] = frac1[0] * (sum[1]/frac1[1]) + frac2[0] * ((sum[1]/frac2[1]));
     	}else {
     		sum[1] = frac1[1];
     	}
+    	sum[0] = frac1[0] + frac2[0];
     	return sum;
     }
     
@@ -147,6 +152,15 @@ public class FracCalc {
   	}
     //converts an improper fraction to a mixed number
   	public static String toMixedNum(int numerator, int denominator) {
-  		return (numerator/denominator + "_" + (numerator%denominator) + "/" + denominator);
+  		String mixedNum = numerator/denominator + "_" + (numerator%denominator) + "/" + denominator;
+  		//gets rid of 0/1  
+  		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0")) {
+  			mixedNum = mixedNum.substring(0, mixedNum.indexOf("_"));
+  		}
+  		//gets rid of negative sign after "_"
+  		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("-")) {
+  			mixedNum = numerator/denominator + "_" + -(numerator%denominator) + "/" + denominator;
+  		}
+  		return mixedNum;
   	}
 }
