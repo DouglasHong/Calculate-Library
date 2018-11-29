@@ -37,6 +37,7 @@ public class FracCalc {
     	int denominator2 = parseDenominator(splitInput, 2);
     	int[] firstImproper = toImproperFrac(wholeNum1, numerator1, denominator1);
     	int[] secondImproper = toImproperFrac(wholeNum2, numerator2, denominator2);
+    	
     	int[] answer = new int[2];
     	if(splitInput[1].equals("+")) {
     		answer = add(firstImproper, secondImproper);
@@ -47,7 +48,7 @@ public class FracCalc {
     	}else {
     		answer = divide(firstImproper, secondImproper);
     	} 
-    	
+    	//return Arrays.toString(firstImproper) + "" + Arrays.toString(secondImproper);
     	//return Arrays.toString(answer);
        return toMixedNum(answer[0], answer[1]);
         //return "whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2;
@@ -158,13 +159,21 @@ public class FracCalc {
     //converts an improper fraction to a mixed number
   	public static String toMixedNum(int numerator, int denominator) {
   		String mixedNum = numerator/denominator + "_" + (numerator%denominator) + "/" + denominator;
-  		//gets rid of 0/1  
+  		//gets rid of 0/denominator  
   		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0")) {
   			mixedNum = mixedNum.substring(0, mixedNum.indexOf("_"));
   		}
   		//gets rid of negative sign after "_"
   		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("-")) {
   			mixedNum = numerator/denominator + "_" + -(numerator%denominator) + "/" + denominator;
+  		}
+  		//gets rid of negative sign after "/"
+  		if(mixedNum.substring(mixedNum.indexOf("/") + 1).startsWith("-")){
+  			mixedNum = mixedNum.substring(0, mixedNum.indexOf("/") + 1) + -(denominator);
+  		}
+  		//gets rid of 0 as whole number
+  		if(mixedNum.startsWith("0")) {
+  			mixedNum = mixedNum.substring(mixedNum.indexOf("_") + 1, mixedNum.length());
   		}
   		return mixedNum;
   	}
