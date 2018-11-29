@@ -48,7 +48,8 @@ public class FracCalc {
     		answer = divide(firstImproper, secondImproper);
     	} 
     	//return Arrays.toString(secondImproper);
-       return toMixedNum(answer[0], answer[1]);
+    	return Arrays.toString(answer);
+       //return toMixedNum(answer[0], answer[1]);
         //return "whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2;
     	//return splitInput[2];
     }
@@ -155,7 +156,7 @@ public class FracCalc {
   	public static String toMixedNum(int numerator, int denominator) {
   		String mixedNum = numerator/denominator + "_" + (numerator%denominator) + "/" + denominator;
   		//gets rid of 0/1  
-  		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0") && mixedNum.endsWith("1")) {
+  		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0")) {
   			mixedNum = mixedNum.substring(0, mixedNum.indexOf("_"));
   		}
   		//gets rid of negative sign after "_"
