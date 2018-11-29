@@ -47,9 +47,9 @@ public class FracCalc {
     	}else {
     		answer = divide(firstImproper, secondImproper);
     	} 
-    	//return Arrays.toString(secondImproper);
-    	return Arrays.toString(answer);
-       //return toMixedNum(answer[0], answer[1]);
+    	
+    	//return Arrays.toString(answer);
+       return toMixedNum(answer[0], answer[1]);
         //return "whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2;
     	//return splitInput[2];
     }
@@ -97,13 +97,11 @@ public class FracCalc {
 
     public static int[] add(int[] frac1, int[] frac2) {
     	int[] sum = new int[2];
+    	int gcf = gcf(frac1[1], frac2[1]);
+    	frac1[0] *= (gcf/frac1[1]);
+    	frac2[0] *= (gcf/frac2[1]);
     	sum[0] = frac1[0] + frac2[0];
-    	if(frac1[1] != frac2[1]) {
-    		sum[1] = gcf(frac1[1], frac2[1]);
-    		sum[0] = frac1[0]*(sum[1] / frac1[1]) + frac2[0]*(sum[1]/frac2[1]);
-    	}else {
-    		sum[1] = frac1[1];
-    	}
+    	sum[1] = gcf;
     	return sum;
     }
     
@@ -138,6 +136,11 @@ public class FracCalc {
   			if(isDivisibleBy(num1, i) && isDivisibleBy(num2, i)) {
   				greatestFactor = i;
   			}
+  		}
+  		if(num1 == 1) {
+  			greatestFactor = num2;
+  		}else if(num2 == 1) {
+  			greatestFactor = num1;
   		}
   		return greatestFactor;
   	}
