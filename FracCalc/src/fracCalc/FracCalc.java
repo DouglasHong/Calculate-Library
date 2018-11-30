@@ -29,30 +29,45 @@ public class FracCalc {
     //      e.g. return ==> "1_1/4"
     public static String produceAnswer(String input) { 
     	String[] splitInput = input.split(" ");
-    	int wholeNum1 = parseWholeNum(splitInput, 0);
-    	int numerator1 = parseNumerator(splitInput, 0);
-    	int denominator1 = parseDenominator(splitInput, 0);
-    	int wholeNum2 = parseWholeNum(splitInput, 2);
-    	int numerator2 = parseNumerator(splitInput, 2);
-    	int denominator2 = parseDenominator(splitInput, 2);
-    	int[] firstImproper = toImproperFrac(wholeNum1, numerator1, denominator1);
-    	int[] secondImproper = toImproperFrac(wholeNum2, numerator2, denominator2);
-    	
+    	int firstWholeNum = parseWholeNum(splitInput, 0);
+    	int firstNumerator = parseNumerator(splitInput, 0);
+    	int firstdenominator = parseDenominator(splitInput, 0);
+    	int secondWholeNum = parseWholeNum(splitInput, 2);
+    	int secondNumerator = parseNumerator(splitInput, 2);
+    	int secondDenominator = parseDenominator(splitInput, 2);
+    	int[] firstOperand = toImproperFrac(firstWholeNum, firstNumerator, firstdenominator);
+    	int[] secondOperand = toImproperFrac(secondWholeNum, secondNumerator, secondDenominator);
     	int[] answer = new int[2];
     	if(splitInput[1].equals("+")) {
-    		answer = add(firstImproper, secondImproper);
+    		answer = add(firstOperand, secondOperand);
     	}else if(splitInput[1].equals("-")) {
-    		answer = subtract(firstImproper, secondImproper);
+    		answer = subtract(firstOperand, secondOperand);
     	}else if(splitInput[1].equals("*")) {
-    		answer = multiply(firstImproper, secondImproper);
+    		answer = multiply(firstOperand, secondOperand);
     	}else {
-    		answer = divide(firstImproper, secondImproper);
+    		answer = divide(firstOperand, secondOperand);
     	} 
-    	//return Arrays.toString(firstImproper) + "" + Arrays.toString(secondImproper);
+    	//return Arrays.toString(firstOperand) + "" + Arrays.toString(secondOperand);
     	//return Arrays.toString(answer);
        return toMixedNum(answer[0], answer[1]);
-        //return "whole:" + wholeNum2 + " numerator:" + numerator2 + " denominator:" + denominator2;
+        //return "whole:" + secondWholeNum + " numerator:" + secondNumerator + " denominator:" + secondDenominator;
     	//return splitInput[2];
+    }
+    public static int[] makeRealFraction(String operand) {
+    	int[] realFrac = {0, 0, 1};
+    	if(operand.contains("_")) {
+    		String[] wholeAndFrac = operand.split("_");
+    		realFrac[0] = Integer.parseInt(wholeAndFrac[0]);
+    		operand = wholeAndFrac[1];
+    	}
+    	if(operand.contains("/")) {
+    		String[] numAndDenom = operand.split("/");
+    		realFrac[1] = Integer.parseInt(numAndDenom[0]);
+    		realFrac[2] = Integer.parseInt(numAndDenom[1]);
+    	}else {
+    		realFrac[0] = Integer.parseInt(operand);
+    	}
+    	return realFrac;
     }
     public static int parseWholeNum(String[] input, int index) {
     	String wholeNum;
@@ -162,17 +177,14 @@ public class FracCalc {
   		//gets rid of 0/denominator  
   		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0")) {
   			mixedNum = mixedNum.substring(0, mixedNum.indexOf("_"));
+  		}else if(mixedNum.substring(mixedNum.indexOf("/") + 1).contains("-")){ //gets rid of negative sign after "/"
+  			denominator*=-1;
+  			mixedNum = mixedNum.substring(0, mixedNum.indexOf("/") + 1) + denominator;
   		}
-  		//gets rid of negative sign after "_"
-  		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("-")) {
-  			mixedNum = numerator/denominator + "_" + -(numerator%denominator) + "/" + denominator;
+  		if(mixedNum.substring(mixedNum.indexOf("_") + 1).contains("-")) { //gets rid of negative sign after "_"
+  			mixedNum = numerator/denominator + "_" + (numerator%denominator)*-1 + "/" + denominator;
   		}
-  		//gets rid of negative sign after "/"
-  		if(mixedNum.substring(mixedNum.indexOf("/") + 1).startsWith("-")){
-  			mixedNum = mixedNum.substring(0, mixedNum.indexOf("/") + 1) + -(denominator);
-  		}
-  		//gets rid of 0 as whole number
-  		if(mixedNum.startsWith("0")) {
+  		if(mixedNum.startsWith("0")) { //gets rid of 0 as whole number
   			mixedNum = mixedNum.substring(mixedNum.indexOf("_") + 1, mixedNum.length());
   		}
   		return mixedNum;
