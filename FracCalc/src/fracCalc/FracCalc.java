@@ -31,11 +31,11 @@ public class FracCalc {
     	String[] splitInput = input.split(" ");
     	int firstWholeNum = parseWholeNum(splitInput, 0);
     	int firstNumerator = parseNumerator(splitInput, 0);
-    	int firstdenominator = parseDenominator(splitInput, 0);
+    	int firstDenominator = parseDenominator(splitInput, 0);
     	int secondWholeNum = parseWholeNum(splitInput, 2);
     	int secondNumerator = parseNumerator(splitInput, 2);
     	int secondDenominator = parseDenominator(splitInput, 2);
-    	int[] firstOperand = toImproperFrac(firstWholeNum, firstNumerator, firstdenominator);
+    	int[] firstOperand = toImproperFrac(firstWholeNum, firstNumerator, firstDenominator);
     	int[] secondOperand = toImproperFrac(secondWholeNum, secondNumerator, secondDenominator);
     	int[] answer = new int[2];
     	if(splitInput[1].equals("+")) {
@@ -47,25 +47,33 @@ public class FracCalc {
     	}else {
     		answer = divide(firstOperand, secondOperand);
     	} 
-    	//return Arrays.toString(firstOperand) + "" + Arrays.toString(secondOperand);
+    	//return answer[1] + "";
+    	return Arrays.toString(firstOperand) + "" + Arrays.toString(secondOperand);
     	//return Arrays.toString(answer);
-       return toMixedNum(answer[0], answer[1]);
+      //return toMixedNum(answer[0], answer[1]);
         //return "whole:" + secondWholeNum + " numerator:" + secondNumerator + " denominator:" + secondDenominator;
     	//return splitInput[2];
     }
-    public static int[] makeRealFraction(String operand) {
-    	int[] realFrac = {0, 0, 1};
-    	if(operand.contains("_")) {
-    		String[] wholeAndFrac = operand.split("_");
-    		realFrac[0] = Integer.parseInt(wholeAndFrac[0]);
-    		operand = wholeAndFrac[1];
+    public static int[] makeRealFraction(String[] input, int index) {
+    	int[] realFrac = new int[3];
+    	if(input[index].indexOf("_") != -1) {
+    		realFrac[0] = Integer.parseInt(input[index].substring(0, input[index].indexOf("_")));
+    	}else if(input[index].indexOf("_") == -1 && input[index].indexOf("/") == -1){
+    		realFrac[0] = Integer.parseInt(input[index]);
+    	}else{ //if(splitInput[2].indexOf("_") == -1)
+    		realFrac[0] = Integer.parseInt("0");
     	}
-    	if(operand.contains("/")) {
-    		String[] numAndDenom = operand.split("/");
-    		realFrac[1] = Integer.parseInt(numAndDenom[0]);
-    		realFrac[2] = Integer.parseInt(numAndDenom[1]);
+    	if(input[index].indexOf("_") == -1 && input[index].indexOf("/") != -1) {
+			realFrac[1] = Integer.parseInt(input[index].substring(0, input[index].indexOf("/")));
+		}else if(input[index].indexOf("_") != -1 && input[index].indexOf("/") != -1) {
+			realFrac[1] = Integer.parseInt(input[index].substring(input[index].indexOf("_") + 1, input[index].indexOf("/")));
+		}else {
+			realFrac[1] = Integer.parseInt("0");
+		}
+    	if(input[index].indexOf("/") != -1) {
+    		realFrac[2] = Integer.parseInt(input[index].substring(input[index].indexOf("/") + 1, input[index].length()));
     	}else {
-    		realFrac[0] = Integer.parseInt(operand);
+    		realFrac[2] = Integer.parseInt("1");
     	}
     	return realFrac;
     }
@@ -102,7 +110,7 @@ public class FracCalc {
     }
     public static int[] toImproperFrac(int wholeNum, int numerator, int denominator) {
     	int[] improper = new int[2];
-    	if(wholeNum >= 0) {
+    	if(wholeNum > 0) {
     		improper[0] = wholeNum*denominator+numerator;
     	}else {
     		improper[0] = wholeNum*denominator-numerator;
@@ -114,8 +122,8 @@ public class FracCalc {
     public static int[] add(int[] frac1, int[] frac2) {
     	int[] sum = new int[2];
     	int gcf = gcf(frac1[1], frac2[1]);
-    	frac1[0] *= (gcf/frac1[1]);
-    	frac2[0] *= (gcf/frac2[1]);
+        frac1[0] *= (gcf/frac1[1]);
+        frac2[0] *= (gcf/frac2[1]);
     	sum[0] = frac1[0] + frac2[0];
     	sum[1] = gcf;
     	return sum;
@@ -123,12 +131,11 @@ public class FracCalc {
     
     public static int[] subtract(int[] frac1, int[] frac2) {
     	int[] difference = new int[2];
+    	int gcf = gcf(frac1[1], frac2[1]);
+    	frac1[0] *= (gcf/frac1[1]);
+        frac2[0] *= (gcf/frac2[1]);
     	difference[0] = frac1[0] - frac2[0];
-    	if(frac1[1] != frac2[1]) {
-    		difference[1] = gcf(frac1[1], frac2[1]);
-    	}else {
-    		difference[1] = frac1[1];
-    	}
+    	difference[1] = gcf;
     	return difference;
     }
     
@@ -174,17 +181,20 @@ public class FracCalc {
     //converts an improper fraction to a mixed number
   	public static String toMixedNum(int numerator, int denominator) {
   		String mixedNum = numerator/denominator + "_" + (numerator%denominator) + "/" + denominator;
+  		//gets rid of negative sign in numerator and/or denominator
+  		if(numerator < 0 && denominator < 0) {
+  			mixedNum = numerator/denominator + "_" + (numerator%denominator)*-1 + "/" + denominator*-1;
+  		}else if(numerator < 0 && denominator > 0) {
+  			mixedNum = numerator/denominator + "_" + (numerator%denominator)*-1 + "/" + denominator;
+  		}else if(denominator < 0 && numerator > 0) {
+  			mixedNum = numerator/denominator + "_" + (numerator%denominator) + "/" + denominator*-1;
+  		}
   		//gets rid of 0/denominator  
   		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0")) {
   			mixedNum = mixedNum.substring(0, mixedNum.indexOf("_"));
-  		}else if(mixedNum.substring(mixedNum.indexOf("/") + 1).contains("-")){ //gets rid of negative sign after "/"
-  			denominator*=-1;
-  			mixedNum = mixedNum.substring(0, mixedNum.indexOf("/") + 1) + denominator;
   		}
-  		if(mixedNum.substring(mixedNum.indexOf("_") + 1).contains("-")) { //gets rid of negative sign after "_"
-  			mixedNum = numerator/denominator + "_" + (numerator%denominator)*-1 + "/" + denominator;
-  		}
-  		if(mixedNum.startsWith("0")) { //gets rid of 0 as whole number
+  		//gets rid of 0 as whole number
+  		if(mixedNum.startsWith("0")) { 
   			mixedNum = mixedNum.substring(mixedNum.indexOf("_") + 1, mixedNum.length());
   		}
   		return mixedNum;
