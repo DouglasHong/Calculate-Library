@@ -73,7 +73,7 @@ public class FracCalc {
        	improper[1] = operand[2];
     	return improper;
     }
-    //adds two improper fractions together 
+    //adds two improper fractions together and returns an improper fraction
     public static int[] add(int[] frac1, int[] frac2) {
     	int[] sum = new int[2];
     	int gcf = gcf(frac1[1], frac2[1]);
@@ -83,7 +83,7 @@ public class FracCalc {
     	sum[1] = gcf;
     	return sum;
     }
-    //subtracts two improper fractions
+    //subtracts two improper fractions and returns an improper fraction
     public static int[] subtract(int[] frac1, int[] frac2) {
     	int[] difference = new int[2];
     	int gcf = gcf(frac1[1], frac2[1]);
@@ -93,14 +93,14 @@ public class FracCalc {
     	difference[1] = gcf;
     	return difference;
     }
-    //multiplies two improper fractions
+    //multiplies two improper fractions and returns an improper fraction
     public static int[] multiply(int[] frac1, int[] frac2) {
     	int[] product = new int[2];
     	product[0] = frac1[0] * frac2[0];
     	product[1] = frac1[1] * frac2[1];
     	return product;
     }
-    //divides two improper fractions
+    //divides two improper fractions and returns an improper fraction
     public static int[] divide(int[] frac1, int[] frac2) {
     	int[] quotient = new int[2];
     	quotient[0] = frac1[0] * frac2[1];
@@ -111,19 +111,38 @@ public class FracCalc {
   	public static int gcf(int num1, int num2) {
   		return num1 * num2;
   	}
+  	//reduces the fraction by finding the least common denominator and dividing the numbers by that number
   	public static void reduce(int[] frac) {
   		int greaterNum;
-  		if(frac[0] > frac[1]) {
+  		//uses absolute value so it can also work with negative numbers
+  		if(absValue(frac[0]) > absValue(frac[1])) {
   			greaterNum = frac[0];
   		}else {
   			greaterNum = frac[1];
   		}
-  		for(int i = greaterNum; i >= 2; i--) {
-			if(isDivisibleBy(frac[0], i) && isDivisibleBy(frac[1], i)) {
-				frac[0] /= i;
-				frac[1] /= i;
-			}
-		}
+  		if(greaterNum > 0) {
+  			for(int i = greaterNum; i >= 1; i--) {
+  				if(isDivisibleBy(absValue(frac[0]), i) && isDivisibleBy(absValue(frac[1]), i)) {
+  					frac[0] /= i;
+  					frac[1] /= i;
+  				}
+  			}
+  		}else {
+  			for(int i = greaterNum; i <= -1; i++) {
+  				if(isDivisibleBy(absValue(frac[0]), i) && isDivisibleBy(absValue(frac[1]), i)) {
+  					frac[0] /= i;
+  					frac[1] /= i;
+  				}
+  			}
+  		}
+  	}
+  	//returns the absolute value of the number passed
+  	public static int absValue(int number) {
+  		if(number < 0) {
+  			return number*-1;
+  		}else {
+  			return number;
+  		}
   	}
     //determines if a number is evenly divisible by another number
   	public static boolean isDivisibleBy(int num1, int num2) {
@@ -137,14 +156,6 @@ public class FracCalc {
   	public static String toMixedNum(int[] improperFrac) {
   		//improperFrac[0] is the numerator and improperFrac[1] is the denominator
   		String mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1]) + "/" + improperFrac[1];
-  		//gets rid of negative sign in numerator and/or denominator
-  		if(improperFrac[0] < 0 && improperFrac[1] < 0) {
-  			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1])*-1 + "/" + improperFrac[1]*-1;
-  		}else if(improperFrac[0] < 0 && improperFrac[1] > 0) {
-  			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1])*-1 + "/" + improperFrac[1];
-  		}else if(improperFrac[1] < 0 && improperFrac[0] > 0) {
-  			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1]) + "/" + improperFrac[1]*-1;
-  		}
   		//gets rid of numerator and denominator if numerator = 0
   		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0")) {
   			mixedNum = mixedNum.substring(0, mixedNum.indexOf("_"));
@@ -152,6 +163,14 @@ public class FracCalc {
   		//gets rid of 0 as whole number
   		if(mixedNum.startsWith("0")) { 
   			mixedNum = mixedNum.substring(mixedNum.indexOf("_") + 1, mixedNum.length());
+  		}
+  		//gets rid of negative sign in numerator and/or denominator
+  		if(improperFrac[0] < 0 && improperFrac[1] < 0 && mixedNum.indexOf("_") != -1) {
+  			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1])*-1 + "/" + improperFrac[1]*-1;
+  		}else if(improperFrac[0] < 0 && improperFrac[1] > 0 && mixedNum.indexOf("_") != -1) {
+  			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1])*-1 + "/" + improperFrac[1];
+  		}else if(improperFrac[1] < 0 && improperFrac[0] > 0 && mixedNum.indexOf("_") != -1) {
+  			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1]) + "/" + improperFrac[1]*-1;
   		}
   		return mixedNum;
   	}
