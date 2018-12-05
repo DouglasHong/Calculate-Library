@@ -10,7 +10,7 @@ public class FracCalc {
 	//the main method handles the userInput and prints out the output from produceAnswer
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
-        System.out.println("Please type the first operand(fraction), the operator (+,-,*,/), and the second operand (fraction) (Type 'quit' to quit)");
+        System.out.println("Please type the first operand (fraction), the operator (+,-,*,/), and the second operand (fraction) (Type 'quit' to quit)");
         String expression = userInput.nextLine();
         while(!expression.equalsIgnoreCase("quit")) {
         	System.out.println(produceAnswer(expression));
@@ -20,13 +20,12 @@ public class FracCalc {
         System.out.println("Calculator stopped");
     }
     //produceAnswer parses the operands in the user's input, does the operations with them, and returns a String mixed number
+    //EXTRA CREDIT: shows error message when erroneous input is provided
     public static String produceAnswer(String input) { 
     	String[] splitInput = input.split(" ");
     	int[] firstOperand = makeRealFraction(splitInput, 0);
     	int[] secondOperand = makeRealFraction(splitInput, 2);
-    	if(firstOperand[2] == 0 || secondOperand[2] == 0) {
-    		throw new IllegalArgumentException("ERROR: Cannot divide by zero.");
-    	}
+    	//add error message for 0
     	int[] firstImproper = toImproperFrac(firstOperand);
     	int[] secondImproper = toImproperFrac(secondOperand);
     	int[] answer = new int[2];
@@ -36,12 +35,15 @@ public class FracCalc {
     		answer = subtract(firstImproper, secondImproper);
     	}else if(splitInput[1].equals("*")) {
     		answer = multiply(firstImproper, secondImproper);
-    	}else {
+    	}else if(splitInput[1].equals("/")){
     		answer = divide(firstImproper, secondImproper);
+    	}else {
+    		return "ERROR: Input is in an invalid format.";
     	}
     	reduce(answer);
         return toMixedNum(answer);
     }
+    //gets the split input and the index of the operand and parses the whole number, numerator, and denominator to integers
     public static int[] makeRealFraction(String[] input, int index) {
     	int[] realFrac = {0, 0, 1};
     	//handles whole number
@@ -114,25 +116,16 @@ public class FracCalc {
   	//reduces the fraction by finding the least common denominator and dividing the numbers by that number
   	public static void reduce(int[] frac) {
   		int greaterNum;
-  		//uses absolute value so it can also work with negative numbers
+  		//uses absolute value so it also works with negative numbers
   		if(absValue(frac[0]) > absValue(frac[1])) {
-  			greaterNum = frac[0];
+  			greaterNum = absValue(frac[0]);
   		}else {
-  			greaterNum = frac[1];
+  			greaterNum = absValue(frac[1]);
   		}
-  		if(greaterNum > 0) {
-  			for(int i = greaterNum; i >= 1; i--) {
-  				if(isDivisibleBy(absValue(frac[0]), i) && isDivisibleBy(absValue(frac[1]), i)) {
-  					frac[0] /= i;
-  					frac[1] /= i;
-  				}
-  			}
-  		}else {
-  			for(int i = greaterNum; i <= -1; i++) {
-  				if(isDivisibleBy(absValue(frac[0]), i) && isDivisibleBy(absValue(frac[1]), i)) {
-  					frac[0] /= i;
-  					frac[1] /= i;
-  				}
+  		for(int i = greaterNum; i > 1; i--) {
+  			if(isDivisibleBy(absValue(frac[0]), i) && isDivisibleBy(absValue(frac[1]), i)) {
+  				frac[0] /= i;
+  				frac[1] /= i;
   			}
   		}
   	}
@@ -152,9 +145,8 @@ public class FracCalc {
   			return false;
   		}
   	}
-    //converts an improper fraction to a mixed number
+    //converts an improper fraction to a mixed number 
   	public static String toMixedNum(int[] improperFrac) {
-  		//improperFrac[0] is the numerator and improperFrac[1] is the denominator
   		String mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1]) + "/" + improperFrac[1];
   		//gets rid of numerator and denominator if numerator = 0
   		if(mixedNum.substring(mixedNum.indexOf("_") + 1).startsWith("0")) {
@@ -164,13 +156,15 @@ public class FracCalc {
   		if(mixedNum.startsWith("0")) { 
   			mixedNum = mixedNum.substring(mixedNum.indexOf("_") + 1, mixedNum.length());
   		}
-  		//gets rid of negative sign in numerator and/or denominator
+  		//formats the mixed number by getting rid of improper negative signs in the numerator and/or denominator
   		if(improperFrac[0] < 0 && improperFrac[1] < 0 && mixedNum.indexOf("_") != -1) {
   			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1])*-1 + "/" + improperFrac[1]*-1;
   		}else if(improperFrac[0] < 0 && improperFrac[1] > 0 && mixedNum.indexOf("_") != -1) {
   			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1])*-1 + "/" + improperFrac[1];
-  		}else if(improperFrac[1] < 0 && improperFrac[0] > 0 && mixedNum.indexOf("_") != -1) {
+  		}else if(improperFrac[0] > 0 && improperFrac[1] < 0 && mixedNum.indexOf("_") != -1) {
   			mixedNum = improperFrac[0]/improperFrac[1] + "_" + (improperFrac[0]%improperFrac[1]) + "/" + improperFrac[1]*-1;
+  		}else if(improperFrac[1] < 0 && mixedNum.indexOf("_") == -1 && mixedNum.indexOf("/") != -1) { 
+  			mixedNum = (improperFrac[0]%improperFrac[1])*-1 + "/" + improperFrac[1]*-1;
   		}
   		return mixedNum;
   	}
