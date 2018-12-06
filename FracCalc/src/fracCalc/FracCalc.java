@@ -25,7 +25,9 @@ public class FracCalc {
     	String[] splitInput = input.split(" ");
     	int[] firstOperand = makeRealFraction(splitInput, 0);
     	int[] secondOperand = makeRealFraction(splitInput, 2);
-    	//add error message for 0
+    	if(firstOperand[2] == 0 || secondOperand[2] == 0) {
+    		return "ERROR: Cannot divide by zero.";
+    	}
     	int[] firstImproper = toImproperFrac(firstOperand);
     	int[] secondImproper = toImproperFrac(secondOperand);
     	int[] answer = new int[2];
