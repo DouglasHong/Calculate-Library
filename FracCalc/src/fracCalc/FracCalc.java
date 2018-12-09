@@ -23,8 +23,8 @@ public class FracCalc {
     //EXTRA CREDIT: shows error message when erroneous input is provided
     public static String produceAnswer(String input) { 
     	String[] splitInput = input.split(" ");
-    	int[] firstOperand = makeRealFraction(splitInput, 0);
-    	int[] secondOperand = makeRealFraction(splitInput, 2);
+    	int[] firstOperand = makeRealFraction(splitInput[0]);
+    	int[] secondOperand = makeRealFraction(splitInput[2]);
     	if(firstOperand[2] == 0 || secondOperand[2] == 0) {
     		return "ERROR: Cannot divide by zero.";
     	}
@@ -46,23 +46,19 @@ public class FracCalc {
         return toMixedNum(answer);
     }
     //gets the split input and the index of the operand and parses the whole number, numerator, and denominator to integers
-    public static int[] makeRealFraction(String[] input, int index) {
+    public static int[] makeRealFraction(String operand) {
     	int[] realFrac = {0, 0, 1};
-    	//handles whole number
-    	if(input[index].indexOf("_") != -1) {
-    		realFrac[0] = Integer.parseInt(input[index].substring(0, input[index].indexOf("_")));
-    	}else if(input[index].indexOf("_") == -1 && input[index].indexOf("/") == -1){
-    		realFrac[0] = Integer.parseInt(input[index]);
+    	if(operand.contains("_")) {
+    		String[] wholeAndFrac = operand.split("_");
+    		realFrac[0] = Integer.parseInt(wholeAndFrac[0]);
+    		operand = wholeAndFrac[1];
     	}
-    	//handles numerator
-    	if(input[index].indexOf("_") == -1 && input[index].indexOf("/") != -1) {
-			realFrac[1] = Integer.parseInt(input[index].substring(0, input[index].indexOf("/")));
-		}else if(input[index].indexOf("_") != -1 && input[index].indexOf("/") != -1) {
-			realFrac[1] = Integer.parseInt(input[index].substring(input[index].indexOf("_") + 1, input[index].indexOf("/")));
-		}
-    	//handles denominator
-    	if(input[index].indexOf("/") != -1) {
-    		realFrac[2] = Integer.parseInt(input[index].substring(input[index].indexOf("/") + 1, input[index].length()));
+    	if(operand.contains("/")) {
+    		String[] numAndDenom = operand.split("/");
+    		realFrac[1] = Integer.parseInt(numAndDenom[0]);
+    		realFrac[2] = Integer.parseInt(numAndDenom[1]);
+    	}else {
+    		realFrac[0] = Integer.parseInt(operand);
     	}
     	return realFrac;
     }
