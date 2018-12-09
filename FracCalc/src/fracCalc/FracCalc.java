@@ -45,7 +45,7 @@ public class FracCalc {
     	reduce(answer);
         return toMixedNum(answer);
     }
-    //gets the split input and the index of the operand and parses the whole number, numerator, and denominator to integers
+    //gets the operand and parses the whole number, numerator, and denominator to integers
     public static int[] makeRealFraction(String operand) {
     	int[] realFrac = {0, 0, 1};
     	if(operand.contains("_")) {
