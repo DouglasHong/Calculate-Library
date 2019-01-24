@@ -1,4 +1,4 @@
-package fracCalc;
+package oldFracCalc;
 import java.util.*;
 /* This program does various operations (addition, subtraction, multiplication, and division) with two given fractions. 
  * The program first converts each operand into an improper fraction, does the math with the operation the user chose, and converts to a mixed number.
@@ -6,7 +6,7 @@ import java.util.*;
  * @author Douglas Hong
  * @version 11/15/2018
  */
-public class FracCalc {
+public class OldFracCalcClass {
 	//the main method handles the userInput and prints out the output from produceAnswer
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
